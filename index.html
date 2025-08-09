@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>ASOBLE フロアマップ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASOBLEフロアマップ</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <h1>ASOBLE フロアマップ</h1>
-  <p>ここにアプリの内容を表示します。</p>
+  <div id="map-container">
+    <svg id="overlay"></svg>
+  </div>
+
+  <!-- 操作用ボタン -->
+  <button id="move-mode-btn">✋ 移動モード OFF</button>
+  <button id="rotate-btn" disabled>🌀 回転</button>
+
+  <!-- モーダル -->
+  <div id="modal-backdrop"></div>
+  <div id="info-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h2 id="modal-title">ブース情報</h2>
+      <button id="modal-close" aria-label="閉じる">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-row"><span class="k">ラベルID</span><span class="v" id="m-label"></span></div>
+      <div class="modal-row"><span class="k">ブースID</span><span class="v" id="m-booth-id"></span></div>
+      <div class="modal-row"><span class="k">景品名</span><span class="v" id="m-prize"></span></div>
+      <div class="modal-row"><span class="k">売り上げ</span><span class="v" id="m-sales"></span></div>
+      <div class="modal-row"><span class="k">単価</span><span class="v" id="m-price"></span></div>
+      <div class="modal-row"><span class="k">消化数</span><span class="v" id="m-count"></span></div>
+      <div class="modal-row"><span class="k">消化額</span><span class="v" id="m-cost"></span></div>
+      <div class="modal-row"><span class="k">原価率</span><span class="v" id="m-gpr"></span></div>
+    </div>
+    <div class="modal-footer">
+      <button id="modal-ok">OK</button>
+    </div>
+  </div>
+
+  <!-- PapaParse（CSV） -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
