@@ -1,0 +1,19 @@
+{
+  "name": "asoble-floor",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "forwardPorts": [5173],
+  "postCreateCommand": "npm i -g live-server && echo 'Ready ✅'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ritwickdey.LiveServer",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 800
+      }
+    }
+  }
+}
