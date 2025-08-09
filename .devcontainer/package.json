@@ -1,0 +1,7 @@
+{
+  "name": "asoble-floor",
+  "private": true,
+  "scripts": {
+    "dev": "live-server --port=5173 --entry-file=index.html --open=/index.html"
+  }
+}
