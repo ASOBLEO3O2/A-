@@ -1,0 +1,114 @@
+/* ===== Font ===== */
+@font-face {
+  font-family: "NotoSansJP";
+  src: url("./NotoSansJP-VF.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* ===== Theme vars ===== */
+:root {
+  --bg:#0c0f13;
+  --panel:#12161c;
+  --btn:#2a2f38;
+  --ink:#ffffff;
+  --accent:#2f80ed;
+  --accent-weak:#2f80ed22;
+  --select:#ffd166;
+  --rect-select:#ff9f1c;
+  --backdrop: rgba(0,0,0,0.5);
+  --card:#1a1f27;
+  --muted:#aab2bf;
+}
+
+/* ===== Base ===== */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: "NotoSansJP", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+/* ===== Stage ===== */
+#map-container { position: relative; width: 100vw; height: 100vh; background: var(--panel); }
+svg#overlay { width: 100%; height: 100%; }
+
+/* ===== Buttons ===== */
+#rotate-btn, #move-mode-btn {
+  position: fixed; top: 16px; z-index: 2000;
+  padding: 8px 14px; font-size: 16px;
+  border: none; border-radius: 8px;
+  background: var(--btn); color: var(--ink);
+  cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+#rotate-btn { right: 16px; }
+#move-mode-btn { right: 160px; }
+#rotate-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ===== Booths ===== */
+.booth { fill: var(--accent-weak); stroke: var(--accent); stroke-width: 2; }
+.booth-group.selected .booth { stroke: var(--select); stroke-width: 3; }
+.booth.selected-rect { stroke: var(--rect-select) !important; stroke-width: 3.5 !important; }
+
+/* Labels */
+.label-text {
+  font-size: 24px; fill: #fff; pointer-events: none; user-select: none; paint-order: stroke fill;
+  /* stroke: #000; stroke-width: .8px;  optional outline */
+}
+
+/* ===== Modal ===== */
+/* Backdrop & Modal are hidden via display:none in JS; here we handle animation only */
+#modal-backdrop {
+  position: fixed; inset: 0;
+  background: var(--backdrop);
+  opacity: 0;
+  transition: opacity .3s ease;
+  z-index: 3000;
+}
+#info-modal {
+  position: fixed; top: 50%; left: 50%;
+  width: min(560px, 92vw);
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  display: flex; flex-direction: column;   /* prevent height collapse */
+  transform: translate(-50%, -50%) scale(.96); /* center + initial shrink */
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
+  z-index: 3001;
+}
+
+/* Visible state (JS adds .active) */
+#modal-backdrop.active { opacity: 1; }
+#info-modal.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Modal inner */
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.modal-header h2 { font-size: 18px; margin: 0; }
+#modal-close { background: transparent; color: var(--ink); border: none; font-size: 20px; cursor: pointer; }
+.modal-body { padding: 12px 16px 4px; max-height: 60vh; overflow: auto; }
+.modal-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 8px 12px;
+  padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.06);
+}
+.modal-row .k { color: var(--muted); }
+.modal-row .v { color: var(--ink); word-break: break-word; }
+.modal-footer { padding: 12px 16px 16px; display: flex; justify-content: flex-end; gap: 8px; }
+#modal-ok {
+  background: var(--btn); color: var(--ink);
+  border: none; border-radius: 10px; padding: 8px 16px; font-size: 14px; cursor: pointer;
+}
+
+/* ===== Z-index safety (enable only if何かに隠れる時) ===== */
+/*
+#modal-backdrop { z-index: 2147483646 !important; }
+#info-modal     { z-index: 2147483647 !important; }
+*/
